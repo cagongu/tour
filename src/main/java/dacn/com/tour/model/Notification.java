@@ -7,7 +7,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -20,13 +19,14 @@ import java.util.UUID;
 @Builder
 public class Notification {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    UUID idNotification;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idNotification")
+    Long idNotification;
 
     String type;
     String status;
     String title;
-    String content;
+    String contentNotification;
 
     Timestamp dateTime;// Thời gian bắt đầu ap dung
 
@@ -38,7 +38,7 @@ public class Notification {
     @UpdateTimestamp
     @Column(updatable = false)
     Timestamp dateEdited;
-//    Timestamp dateDeleted;
+    Timestamp dateDeleted;
 
     @ManyToMany
     Set<Account> account;

@@ -7,7 +7,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,25 +17,25 @@ import java.util.UUID;
 @Builder
 public class Tour {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    UUID idTour;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long idTour;
 
     String titleTour;
     double price;
     double sale;
 
     Timestamp departureDate;// ngay khoi hanh
-    String departureAddress; // dia diem khoi hanh
     String description;
-
     String address;
     String duration;// for instance: 1 ngay mot dem
+
     String type;
 
-    UUID tagId;
-    UUID ServiceId;
+    Long tagId;
+    Long serviceId;
 
-    int vote;
+    int views;
+    int votes;
     int purchaseCount;
 
     String statusAction;
@@ -47,7 +46,7 @@ public class Tour {
     @UpdateTimestamp
     @Column(updatable = false)
     Timestamp dateEdited;
-//    Timestamp dateDeleted;
+    Timestamp dateDeleted;
 
     @ManyToOne
     Account account;

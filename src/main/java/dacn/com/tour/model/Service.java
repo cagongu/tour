@@ -18,8 +18,8 @@ import java.util.UUID;
 @Builder
 public class Service {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    UUID idService;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long idService;
 
     String name;
 
@@ -31,5 +31,5 @@ public class Service {
     @UpdateTimestamp
     @Column(updatable = false)
     Timestamp dateEdited;
-//    Timestamp dateDeleted;
+    Timestamp dateDeleted;
 }

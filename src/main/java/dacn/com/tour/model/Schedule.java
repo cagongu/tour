@@ -18,16 +18,16 @@ import java.util.UUID;
 @Builder
 public class Schedule {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    UUID idSchedule;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+     Long idSchedule;
 
     String data;
     String policy;
 
     String detailPrice;// mo ta chi tiet gia
-    String note;
+    String notes;
 
-    String contact;
+    String contacts;
 
     String statusAction;
 
@@ -37,7 +37,7 @@ public class Schedule {
     @UpdateTimestamp
     @Column(updatable = false)
     Timestamp dateEdited;
-//    Timestamp dateDeleted;
+    Timestamp dateDeleted;
 
     @ManyToOne
     Tour tour;

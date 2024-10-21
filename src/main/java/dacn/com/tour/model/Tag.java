@@ -18,7 +18,7 @@ import java.util.UUID;
 @Builder
 public class Tag {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     UUID idTag;
 
     String name;
@@ -31,5 +31,5 @@ public class Tag {
     @UpdateTimestamp
     @Column(updatable = false)
     Timestamp dateEdited;
-//    Timestamp dateDeleted;
+    Timestamp dateDeleted;
 }

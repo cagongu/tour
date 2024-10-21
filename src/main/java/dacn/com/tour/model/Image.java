@@ -7,7 +7,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,14 +17,15 @@ import java.util.UUID;
 @Builder
 public class Image {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-     UUID idImage;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idImage")
+    Long idImage;
 
-     String url;
-     String status;
-     String name;
+    String link;
+    String status;
+    String name;
 
-     String statusAction;
+    String statusAction;
 
     @CreationTimestamp
     Timestamp dateAdded;
@@ -33,7 +33,7 @@ public class Image {
     @UpdateTimestamp
     @Column(updatable = false)
     Timestamp dateEdited;
-//    Timestamp dateDeleted;
+    Timestamp dateDeleted;
 
     @ManyToOne
     Post post;

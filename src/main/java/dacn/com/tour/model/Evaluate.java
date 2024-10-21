@@ -6,8 +6,8 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,14 +18,31 @@ import java.util.UUID;
 @Builder
 public class Evaluate {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idEvaluate")
+    Long idEvaluate;
 
-    int numberStar;
+    @Column(name = "numberStarHotel")
+    Integer numberStarHotel;
+
+    @Column(name = "numberStarFood")
+    Integer numberStarFood;
+
+    @Column(name = "numberStarVehicle")
+    Integer numberStarVehicle;
+
+    @Column(name = "numberStarTourGuide")
+    Integer numberStarTourGuide;
+
+    @Column(name = "numberStarSchedule")
+    Integer numberStarSchedule;
 
     String title;
-    String content;
+    String contentEvaluate;
 
+    BigDecimal rateAverage;
+    String rateTitle;
+    String typeEvaluate;
 
     String statusAction;
 
@@ -35,7 +52,7 @@ public class Evaluate {
     @UpdateTimestamp
     @Column(updatable = false)
     Timestamp dateEdited;
-//    Timestamp dateDeleted;
+    Timestamp dateDeleted;
 
     @ManyToOne
     Account account;

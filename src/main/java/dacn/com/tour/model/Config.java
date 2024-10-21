@@ -9,7 +9,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -20,8 +19,9 @@ import java.util.UUID;
 @Builder
 public class Config {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    UUID idConfig;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idConfig")
+    Long idConfig;
 
     String infoType;
     String content;
@@ -36,9 +36,9 @@ public class Config {
     @UpdateTimestamp
     @Column(updatable = false)
     Timestamp dateEdited;
-//    Timestamp dateDeleted;
+    Timestamp dateDeleted;
 
+    @Builder.Default
     @OneToMany
     Set<Image> images = new HashSet<>();
-
 }

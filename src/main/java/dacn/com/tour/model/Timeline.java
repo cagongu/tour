@@ -18,8 +18,8 @@ import java.util.UUID;
 @Builder
 public class Timeline {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    UUID idTimeline;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long idTimeline;
 
     String title;
     String description;
@@ -33,7 +33,7 @@ public class Timeline {
     @UpdateTimestamp
     @Column(updatable = false)
     Timestamp dateEdited;
-//    Timestamp dateDeleted;
+    Timestamp dateDeleted;
 
     @ManyToOne
     Tour tour;

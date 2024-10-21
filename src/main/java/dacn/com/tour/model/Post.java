@@ -7,8 +7,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -20,18 +18,19 @@ import java.util.UUID;
 @Builder
 public class Post {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    UUID idPost;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idPost")
+     Long idPost;
 
     String titlePost;
-    String Description;
+    String description;
     String contentPost;//Nội dung bài viết (html)
     String status;
     int vote;
     String type;
     int view;
 
-    UUID tagId;
+    Long tagId;
 
     String statusAction;
 
@@ -41,7 +40,7 @@ public class Post {
     @UpdateTimestamp
     @Column(updatable = false)
     Timestamp dateEdited;
-//    Timestamp dateDeleted;
+    Timestamp dateDeleted;
 
     @ManyToOne
     Account account;

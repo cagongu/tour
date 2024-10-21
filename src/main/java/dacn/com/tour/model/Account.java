@@ -7,10 +7,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -19,32 +15,36 @@ import java.util.UUID;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
+@Table(name = "accounts")
 public class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    UUID idAccount;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idAccount")
+    Long idAccount;
 
     String name;
+    @Column(unique = true)
     String email;
+    @Column(unique = true)
     String phone;
-    String address;
-    String gender;
-    Timestamp dob;
-
     String role;
+    @Column(unique = true)
     String username;
     String password;
 
     String avatar;
 
+    @Column(unique = true)
     String idFacebook;
+    @Column(unique = true)
     String idGoogle;
-
     String website;
+    String address;
+    String gender;
+    Timestamp dob;
 
     int verify;
     String verifyToken;
-    String CurrentIp;
 
     String statusAction;
 
@@ -53,6 +53,5 @@ public class Account {
     Timestamp dateAdded;
     @UpdateTimestamp
     Timestamp dateEdited;
-//    Timestamp dateDeleted;
-
+    Timestamp dateDeleted;
 }

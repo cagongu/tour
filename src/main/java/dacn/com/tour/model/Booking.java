@@ -18,21 +18,23 @@ import java.util.UUID;
 @Builder
 public class Booking {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    UUID idOrder;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idOrder")
+     Long idOrder;
 
     String PIN;
     String status;
     double totalPrice;
 
     String address;
-    String phoneNumber;
+    String phone;
     String email;
-    String note;
+    String notes;
     String customerName;
     int adult;
     int children;
     String travelType;
+    private String buyer;
 
     String statusAction;
 
@@ -42,7 +44,7 @@ public class Booking {
     @UpdateTimestamp
     @Column(updatable = false)
     Timestamp dateEdited;
-//    Timestamp dateDeleted;
+    Timestamp dateDeleted;
 
     @ManyToOne
     Account account;

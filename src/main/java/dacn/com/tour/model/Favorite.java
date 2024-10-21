@@ -7,7 +7,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,20 +17,18 @@ import java.util.UUID;
 @Builder
 public class Favorite {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    UUID idFavorites;
-
-//    int idTour;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idFavorite")
+    Long idFavorite;
 
     String statusAction;
 
     @CreationTimestamp
     Timestamp dateAdded;
-
     @UpdateTimestamp
     @Column(updatable = false)
     Timestamp dateEdited;
-    //    Timestamp dateDeleted;
+    Timestamp dateDeleted;
 
     @ManyToOne
     Account account;
