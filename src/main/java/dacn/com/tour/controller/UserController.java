@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
+@RequestMapping("/identity")
 public class UserController {
     private final UserService userService;
     private static final String USER_PATH = "/users";

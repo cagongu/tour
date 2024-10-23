@@ -19,7 +19,7 @@ import java.util.UUID;
 public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    UUID idTag;
+    Long idTag;
 
     String name;
 

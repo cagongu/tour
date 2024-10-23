@@ -41,18 +41,24 @@ public class ConfigServiceImpl implements ConfigService {
 
     @Override
     public ConfigResponse create(ConfigCreateRequest request) {
+       var config = configMapper.configCreationRequestToUser(request);
 
-
-        return null;
+       return configMapper.configToConfigResponse(configRepository.save(config));
     }
 
     @Override
     public ConfigResponse update(Long id, ConfigUpdateRequest request) {
-        return null;
+        var config = configRepository.findById(id).orElseThrow();
+
+        configMapper.updateConfig(config, request);
+
+        configRepository.save(config);
+
+        return configMapper.configToConfigResponse(config);
     }
 
     @Override
     public void delete(Long id) {
-
+        configRepository.deleteById(id);
     }
 }

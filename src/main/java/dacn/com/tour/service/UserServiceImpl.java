@@ -30,7 +30,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserResponse> listAll() {
         log.info("Get all user is ran");
-        return userRepository.findAll().stream().map(userMapper::userToUserResponse).toList();
+        List<Account> accounts = userRepository.findAll();
+        List<UserResponse> response = accounts.stream().map(userMapper::userToUserResponse).toList();
+        return response;
     }
 
     @Override

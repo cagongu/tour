@@ -1,8 +1,16 @@
 package dacn.com.tour.dto.response;
 
 
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 import java.sql.Timestamp;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ConfigResponse {
     String infoType;
     String content;

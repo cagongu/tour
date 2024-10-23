@@ -1,9 +1,17 @@
 package dacn.com.tour.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.sql.Timestamp;
-import java.util.UUID;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserResponse {
     Long idAccount;
     String name;
@@ -21,7 +29,6 @@ public class UserResponse {
     String website;
     int verify;
     String verifyToken;
-    String currentIp;
     String statusAction;
 
     Timestamp dateAdded;

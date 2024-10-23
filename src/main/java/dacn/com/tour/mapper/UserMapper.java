@@ -12,6 +12,7 @@ public interface UserMapper {
     @Mapping(target = "role", ignore = true)
     @Mapping(target = "dateAdded", ignore = true)
     @Mapping(target = "dateEdited", ignore = true)
+    @Mapping(target = "dateDeleted", ignore = true)
     Account userCreationRequestToUser(UserCreateRequest request);
 
     UserResponse userToUserResponse(Account account);
