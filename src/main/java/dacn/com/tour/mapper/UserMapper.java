@@ -6,7 +6,7 @@ import dacn.com.tour.dto.response.UserResponse;
 import dacn.com.tour.model.Account;
 import org.mapstruct.*;
 
-@Mapper
+@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface UserMapper {
     @Mapping(target = "idAccount", ignore = true)
     @Mapping(target = "role", ignore = true)

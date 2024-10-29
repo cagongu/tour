@@ -19,22 +19,16 @@ import java.sql.Timestamp;
 public class Evaluate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idEvaluate")
     Long idEvaluate;
 
-    @Column(name = "numberStarHotel")
     Integer numberStarHotel;
 
-    @Column(name = "numberStarFood")
     Integer numberStarFood;
 
-    @Column(name = "numberStarVehicle")
     Integer numberStarVehicle;
 
-    @Column(name = "numberStarTourGuide")
     Integer numberStarTourGuide;
 
-    @Column(name = "numberStarSchedule")
     Integer numberStarSchedule;
 
     String title;

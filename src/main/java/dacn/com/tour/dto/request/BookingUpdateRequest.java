@@ -1,25 +1,20 @@
-package dacn.com.tour.model;
+package dacn.com.tour.dto.request;
 
-import jakarta.persistence.*;
+import dacn.com.tour.model.Account;
+import dacn.com.tour.model.Tour;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class Booking {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class BookingUpdateRequest {
     Long idOrder;
-
     String PIN;
     String status;
     double totalPrice;
@@ -36,17 +31,4 @@ public class Booking {
 
     String statusAction;
 
-    @CreationTimestamp
-    Timestamp dateAdded;
-
-    @UpdateTimestamp
-    @Column(updatable = false)
-    Timestamp dateEdited;
-    Timestamp dateDeleted;
-
-    @ManyToOne
-    Account account;
-
-    @ManyToOne
-    Tour tour;
 }

@@ -1,27 +1,26 @@
-package dacn.com.tour.model;
+package dacn.com.tour.dto.response;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import dacn.com.tour.model.Account;
+import dacn.com.tour.model.Booking;
+import jakarta.persistence.Column;
+import jakarta.persistence.ManyToOne;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class Tour {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TourResponse {
     Long idTour;
-
     String titleTour;
     double price;
     double sale;
@@ -42,20 +41,10 @@ public class Tour {
 
     String statusAction;
 
-    @CreationTimestamp
     Timestamp dateAdded;
-
-    @UpdateTimestamp
-    @Column(updatable = false)
     Timestamp dateEdited;
     Timestamp dateDeleted;
 
-    @Builder.Default
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    Set<Booking> bookings = new HashSet<>();
-
-    public void addBooking(Booking booking) {
-        bookings.add(booking);
-        booking.setTour(this);
-    }
+    @JsonIgnore
+    Set<Booking> bookings;
 }

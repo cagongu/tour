@@ -15,11 +15,9 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-@Table(name = "accounts")
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idAccount")
     Long idAccount;
 
     String name;

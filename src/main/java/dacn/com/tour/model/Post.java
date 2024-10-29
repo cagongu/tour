@@ -19,7 +19,6 @@ import java.util.UUID;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idPost")
      Long idPost;
 
     String titlePost;

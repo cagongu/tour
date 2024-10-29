@@ -50,18 +50,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse create(UserCreateRequest request) {
         log.info("Create new user is ran");
-        try {
-            userRepository.findUserByUsername(request.getUsername());
-        } catch (AppException exception) {
-            throw new AppException(ErrorCode.USER_EXISTED);
-        }
+            if(userRepository.findUserByUsername(request.getUsername()).isEmpty()){
+                Account account = userMapper.userCreationRequestToUser(request);
+                account.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        Account account = userMapper.userCreationRequestToUser(request);
-        account.setPassword(passwordEncoder.encode(request.getPassword()));
-
-        account.setRole(Role.USER.name());
-
-        return userMapper.userToUserResponse(userRepository.save(account));
+                account.setRole(Role.USER.name());
+                return userMapper.userToUserResponse(userRepository.save(account));
+            }
+            else {
+                throw new AppException(ErrorCode.USER_EXISTED);
+            }
     }
 
     @Override

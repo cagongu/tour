@@ -20,7 +20,6 @@ import java.util.UUID;
 public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idNotification")
     Long idNotification;
 
     String type;

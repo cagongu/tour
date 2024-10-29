@@ -2,15 +2,11 @@ package dacn.com.tour.mapper;
 
 import dacn.com.tour.dto.request.ConfigCreateRequest;
 import dacn.com.tour.dto.request.ConfigUpdateRequest;
-import dacn.com.tour.dto.request.UserCreateRequest;
-import dacn.com.tour.dto.request.UserUpdateRequest;
 import dacn.com.tour.dto.response.ConfigResponse;
-import dacn.com.tour.dto.response.UserResponse;
-import dacn.com.tour.model.Account;
 import dacn.com.tour.model.Config;
 import org.mapstruct.*;
 
-@Mapper
+@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface ConfigMapper {
     @Mapping(target = "idConfig", ignore = true)
     @Mapping(target = "dateAdded", ignore = true)

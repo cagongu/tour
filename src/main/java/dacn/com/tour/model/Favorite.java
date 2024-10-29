@@ -18,7 +18,6 @@ import java.sql.Timestamp;
 public class Favorite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idFavorite")
     Long idFavorite;
 
     String statusAction;

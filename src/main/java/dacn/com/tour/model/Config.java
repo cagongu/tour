@@ -20,7 +20,6 @@ import java.util.Set;
 public class Config {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idConfig")
     Long idConfig;
 
     String infoType;

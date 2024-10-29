@@ -18,7 +18,6 @@ import java.sql.Timestamp;
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idImage")
     Long idImage;
 
     String link;
