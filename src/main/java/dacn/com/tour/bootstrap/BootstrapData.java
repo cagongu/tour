@@ -3,6 +3,7 @@ package dacn.com.tour.bootstrap;
 import dacn.com.tour.enums.StatusAction;
 import dacn.com.tour.model.Account;
 import dacn.com.tour.model.Booking;
+import dacn.com.tour.model.Image;
 import dacn.com.tour.model.Tour;
 import dacn.com.tour.repository.AccountRepository;
 import dacn.com.tour.repository.BookingRepository;
@@ -75,6 +76,10 @@ public class BootstrapData implements CommandLineRunner {
             tour1.setServiceId(null);
             tour1.setViews(100);
             tour1.setVotes(50);
+            tour1.getImages().add(Image
+                    .builder()
+                            .link("123asd")
+                    .build());
             tour1.setPurchaseCount(20);
             tour1.setStatusAction(StatusAction.ACTIVE.name());
             tour1.setBookings(null);

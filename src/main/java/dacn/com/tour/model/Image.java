@@ -35,11 +35,5 @@ public class Image {
     Timestamp dateDeleted;
 
     @ManyToOne
-    Post post;
-
-    @ManyToOne
-    Tour tour;
-
-    @ManyToOne
     Config config;
 }

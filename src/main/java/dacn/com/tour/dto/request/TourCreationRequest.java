@@ -1,6 +1,7 @@
 package dacn.com.tour.dto.request;
 
 import dacn.com.tour.model.Booking;
+import dacn.com.tour.model.Image;
 import jakarta.persistence.OneToMany;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -32,4 +33,6 @@ public class TourCreationRequest {
     int purchaseCount;
 
     String statusAction;
+
+    Set<Image> images;
 }

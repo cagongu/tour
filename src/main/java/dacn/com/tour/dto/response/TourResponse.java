@@ -3,6 +3,7 @@ package dacn.com.tour.dto.response;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import dacn.com.tour.model.Account;
 import dacn.com.tour.model.Booking;
+import dacn.com.tour.model.Image;
 import jakarta.persistence.Column;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
@@ -47,4 +48,6 @@ public class TourResponse {
 
     @JsonIgnore
     Set<Booking> bookings;
+
+    Set<Image> images;
 }

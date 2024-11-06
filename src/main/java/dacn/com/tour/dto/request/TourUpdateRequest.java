@@ -1,6 +1,7 @@
 package dacn.com.tour.dto.request;
 
 import dacn.com.tour.model.Booking;
+import dacn.com.tour.model.Image;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import java.sql.Timestamp;
@@ -34,5 +35,7 @@ public class TourUpdateRequest {
     int purchaseCount;
 
     String statusAction;
+
     Set<Booking> bookings;
+    Set<Image> images;
 }
