@@ -12,7 +12,7 @@ public interface BookingService {
     List<BookingResponse> listAll();
 
     BookingResponse getById(Long id);
-    BookingResponse create(BookingCreateRequest request);
+    BookingResponse create(Long tourId, Long userId, BookingCreateRequest request);
     BookingResponse update(Long id, UserUpdateRequest request);
     void delete(Long id);
 }

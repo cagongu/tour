@@ -1,5 +1,7 @@
 package dacn.com.tour.model;
 
+import dacn.com.tour.enums.StatusAction;
+import dacn.com.tour.enums.TypeOfTour;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -23,13 +25,14 @@ public class Tour {
     Long idTour;
 
     String titleTour;
-    double price;
     double sale;
 
     Timestamp departureDate;// ngay khoi hanh
     String description;
     String address;
     String duration;// for instance: 1 ngay mot dem
+
+    Double price;
 
     String type;
 
@@ -62,4 +65,8 @@ public class Tour {
     @Builder.Default
     @OneToMany(cascade = CascadeType.ALL)
     Set<Image> images = new HashSet<>();
+
+    @Builder.Default
+    @OneToMany(cascade = CascadeType.ALL)
+    Set<Favorite> favorites = new HashSet<>();
 }

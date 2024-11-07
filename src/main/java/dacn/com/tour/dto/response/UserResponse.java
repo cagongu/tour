@@ -22,7 +22,6 @@ public class UserResponse {
     Timestamp dob;
     String role;
     String username;
-    String password;
     String avatar;
     String idFacebook;
     String idGoogle;

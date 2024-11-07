@@ -27,8 +27,4 @@ public class BookingCreateRequest {
     private String buyer;
 
     String statusAction;
-
-    Account account;
-
-    Tour tour;
 }

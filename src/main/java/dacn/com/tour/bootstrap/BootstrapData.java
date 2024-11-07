@@ -1,6 +1,7 @@
 package dacn.com.tour.bootstrap;
 
 import dacn.com.tour.enums.StatusAction;
+import dacn.com.tour.enums.TypeOfTour;
 import dacn.com.tour.model.Account;
 import dacn.com.tour.model.Booking;
 import dacn.com.tour.model.Image;
@@ -37,27 +38,29 @@ public class BootstrapData implements CommandLineRunner {
         Account account = accountRepository.findAll().getFirst();
         Tour tour = tourRepository.findAll().getFirst();
 
-        Booking booking = Booking.builder()
-                .PIN(UUID.randomUUID().toString())
-                .status("CONFIRMED")
-                .totalPrice(10000.0)
-                .address(tour.getAddress())
-                .phone(account.getPhone())
-                .email(account.getEmail())
-                .notes("Special requests for this booking")
-                .customerName(account.getName())
-                .adult(2) // số người lớn
-                .children(1) // số trẻ em
-                .travelType("Family Trip")
-                .buyer(account.getName())
-                .statusAction(StatusAction.ACTIVE.name())
-                .account(account)
-                .tour(tour)
-                .build();
+        if(bookingRepository.count() < 1){
+            Booking booking = Booking.builder()
+                    .PIN(UUID.randomUUID().toString())
+                    .status("CONFIRMED")
+                    .totalPrice(10000.0)
+                    .address(tour.getAddress())
+                    .phone(account.getPhone())
+                    .email(account.getEmail())
+                    .notes("Special requests for this booking")
+                    .customerName(account.getName())
+                    .adult(2)
+                    .children(1)
+                    .travelType("Family Trip")
+                    .buyer(account.getName())
+                    .statusAction(StatusAction.ACTIVE.name())
+                    .account(account)
+                    .tour(tour)
+                    .build();
 
-        bookingRepository.save(booking);
+            bookingRepository.save(booking);
+            tour.getBookings().add(booking);
+        }
 
-        tour.getBookings().add(booking);
         tourRepository.save(tour);
     }
 
@@ -71,7 +74,7 @@ public class BootstrapData implements CommandLineRunner {
             tour1.setDescription("Khám phá các điểm nổi bật trong thành phố");
             tour1.setAddress("123 Main Street, City Center");
             tour1.setDuration("1 ngày 1 đêm");
-            tour1.setType("City Tour");
+            tour1.setType(TypeOfTour.TOUR_XE_TU_LAI.name());
             tour1.setTagId(null);
             tour1.setServiceId(null);
             tour1.setViews(100);
@@ -92,7 +95,7 @@ public class BootstrapData implements CommandLineRunner {
             tour2.setDescription("Khám phá vẻ đẹp thiên nhiên");
             tour2.setAddress("Mountain Road, Countryside");
             tour2.setDuration("2 ngày 1 đêm");
-            tour2.setType("Nature Tour");
+            tour2.setType(TypeOfTour.TOUR_THANH_LOC.name());
             tour2.setTagId(null);
             tour2.setServiceId(null);
             tour2.setViews(150);

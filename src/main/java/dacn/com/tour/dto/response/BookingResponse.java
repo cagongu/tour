@@ -1,8 +1,7 @@
 package dacn.com.tour.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import dacn.com.tour.model.Account;
-import dacn.com.tour.model.Tour;
-import jakarta.persistence.Entity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -14,6 +13,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BookingResponse {
     Long idOrder;
 
@@ -39,5 +39,5 @@ public class BookingResponse {
 
     Account account;
 
-    Tour tour;
+    TourResponse tour;
 }

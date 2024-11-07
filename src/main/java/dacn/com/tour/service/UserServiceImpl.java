@@ -9,6 +9,7 @@ import dacn.com.tour.exception.ErrorCode;
 import dacn.com.tour.mapper.UserMapper;
 import dacn.com.tour.model.Account;
 
+import dacn.com.tour.model.Favorite;
 import dacn.com.tour.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface TourRepository extends JpaRepository<Tour, Long> {
     List<Tour> findAllByDescriptionIsLikeIgnoreCase(String name);
+    List<Tour> findAllByTypeIsLikeIgnoreCase(String name);
+    List<Tour> findAllByAddressIsLikeIgnoreCase(String name);
 
 }

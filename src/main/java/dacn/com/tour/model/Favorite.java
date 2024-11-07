@@ -31,7 +31,4 @@ public class Favorite {
 
     @ManyToOne
     Account account;
-
-    @ManyToOne
-    Tour tour;
 }
