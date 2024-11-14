@@ -30,11 +30,15 @@ public class PostServiceImpl implements PostService {
         }
 
         if(StringUtils.hasText(post.getDescription())){
-            updated.setContentPost(post.getDescription());
+            updated.setDescription(post.getDescription());
         }
 
         if(StringUtils.hasText(post.getTitlePost())){
-            updated.setContentPost(post.getTitlePost());
+            updated.setTitlePost(post.getTitlePost());
+        }
+
+        if(StringUtils.hasText(post.getImage())){
+            updated.setImage(post.getImage());
         }
 
         return postRepository.save(updated);

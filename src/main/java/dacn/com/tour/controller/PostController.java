@@ -10,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -37,6 +35,14 @@ public class PostController {
 
         return ApiResponse.<List<Post>>builder()
                 .result(postService.getAll())
+                .build();
+    }
+
+    @PutMapping(POST_PATH_ID)
+    public ApiResponse<Post> updatePost(@PathVariable("postId") Long id, @RequestBody Post post){
+
+        return ApiResponse.<Post>builder()
+                .result(postService.updatePost(post, id))
                 .build();
     }
 
