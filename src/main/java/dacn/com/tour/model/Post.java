@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.awt.*;
 import java.sql.Timestamp;
 import java.util.Set;
 import java.util.UUID;
@@ -20,17 +21,16 @@ import java.util.UUID;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     Long idPost;
+    Long idPost;
 
     String titlePost;
     String description;
-    String contentPost;//Nội dung bài viết (html)
+    @Column(length = 100000)
+    String contentPost;
     String status;
     int vote;
     String type;
     int view;
-
-    Long tagId;
 
     String statusAction;
 
@@ -42,10 +42,6 @@ public class Post {
     Timestamp dateEdited;
     Timestamp dateDeleted;
 
-    @ManyToOne
-    Account account;
-
-    @OneToMany
-    Set<Image> images;
-
+    @Column(unique = false, nullable = true, length = 100000)
+    String image;
 }

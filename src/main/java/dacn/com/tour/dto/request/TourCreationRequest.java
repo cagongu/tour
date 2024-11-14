@@ -1,13 +1,10 @@
 package dacn.com.tour.dto.request;
 
-import dacn.com.tour.model.Booking;
-import dacn.com.tour.model.Image;
-import jakarta.persistence.OneToMany;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.awt.*;
 import java.sql.Timestamp;
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -34,5 +31,5 @@ public class TourCreationRequest {
 
     String statusAction;
 
-    Set<Image> images;
+//    Set<Image> images;
 }

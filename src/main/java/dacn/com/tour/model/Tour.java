@@ -62,9 +62,9 @@ public class Tour {
         booking.setTour(this);
     }
 
-    @Builder.Default
-    @OneToMany(cascade = CascadeType.ALL)
-    Set<Image> images = new HashSet<>();
+//    @Builder.Default
+//    @OneToMany(cascade = CascadeType.ALL)
+//    Set<Image> images = new HashSet<>();
 
     @Builder.Default
     @OneToMany(cascade = CascadeType.ALL)

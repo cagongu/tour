@@ -2,11 +2,11 @@ package dacn.com.tour.dto.request;
 
 import dacn.com.tour.model.Booking;
 import dacn.com.tour.model.Favorite;
-import dacn.com.tour.model.Image;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.awt.*;
 import java.sql.Timestamp;
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -39,6 +39,6 @@ public class TourUpdateRequest {
     String statusAction;
 
     Set<Booking> bookings;
-    Set<Image> images;
+//    Set<Image> images;
     Set<Favorite> favorites;
 }

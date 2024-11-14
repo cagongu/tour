@@ -2,19 +2,13 @@ package dacn.com.tour.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dacn.com.tour.model.Account;
 import dacn.com.tour.model.Booking;
 import dacn.com.tour.model.Favorite;
-import dacn.com.tour.model.Image;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
+import java.awt.*;
 import java.sql.Timestamp;
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -53,8 +47,8 @@ public class TourResponse {
     @JsonIgnore
     Set<Booking> bookings;
 
-    @JsonIgnore
-    Set<Image> images;
+//    @JsonIgnore
+//    Set<Image> images;
 
     @JsonIgnore
     Set<Favorite> favorites;
