@@ -1,5 +1,6 @@
 package dacn.com.tour.model;
 
+import dacn.com.tour.enums.StatusAction;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -32,7 +33,7 @@ public class Post {
     String type;
     int view;
 
-    String statusAction;
+    StatusAction statusAction;
 
     @CreationTimestamp
     Timestamp dateAdded;

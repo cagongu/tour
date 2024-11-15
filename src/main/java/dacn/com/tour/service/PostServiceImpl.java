@@ -1,5 +1,6 @@
 package dacn.com.tour.service;
 
+import dacn.com.tour.enums.StatusAction;
 import dacn.com.tour.exception.AppException;
 import dacn.com.tour.exception.ErrorCode;
 import dacn.com.tour.model.Post;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -33,6 +35,10 @@ public class PostServiceImpl implements PostService {
             updated.setDescription(post.getDescription());
         }
 
+        if(StringUtils.hasText(post.getStatusAction().name())){
+            updated.setStatusAction(post.getStatusAction());
+        }
+
         if(StringUtils.hasText(post.getTitlePost())){
             updated.setTitlePost(post.getTitlePost());
         }
@@ -46,7 +52,9 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getAll() {
-        return postRepository.findAll();
+        return postRepository.findAll().stream()
+                .filter(post -> !"DELETE".equals(post.getStatus()))
+                .collect(Collectors.toList());
     }
 
 
@@ -54,5 +62,14 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post getById(Long id) {
         return postRepository.findById(id).get();
+    }
+
+    @Override
+    public Post delete(Long id) {
+        Post deletePost = postRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.POST_NOT_FOUND));
+
+        deletePost.setStatus(StatusAction.DELETE.name());
+
+        return postRepository.save(deletePost);
     }
 }

@@ -14,4 +14,6 @@ public interface PostService {
     List<Post> getAll();
 
     Post getById(Long id);
+
+    Post delete(Long id);
 }
