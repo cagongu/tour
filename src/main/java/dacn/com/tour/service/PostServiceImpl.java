@@ -57,8 +57,6 @@ public class PostServiceImpl implements PostService {
                 .collect(Collectors.toList());
     }
 
-
-
     @Override
     public Post getById(Long id) {
         return postRepository.findById(id).get();

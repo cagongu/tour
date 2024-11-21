@@ -1,11 +1,14 @@
 package dacn.com.tour.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dacn.com.tour.model.Account;
+import dacn.com.tour.model.CustomerInfo;
+import dacn.com.tour.model.Tour;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.sql.Timestamp;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,27 +20,23 @@ import java.sql.Timestamp;
 public class BookingResponse {
     Long idOrder;
 
-    String PIN;
-    String status;
-    double totalPrice;
+    int adult;
+    int children;
+    int baby;
 
+    Boolean acceptPolice;
+
+    String customerName;
     String address;
     String phone;
     String email;
     String notes;
-    String customerName;
-    int adult;
-    int children;
-    String travelType;
-    private String buyer;
 
-    String statusAction;
+    String total;
 
-    Timestamp dateAdded;
-    Timestamp dateEdited;
-    Timestamp dateDeleted;
+    Set<CustomerInfo> customerInfoList;
 
-    Account account;
+    UserResponse account;
 
     TourResponse tour;
 }

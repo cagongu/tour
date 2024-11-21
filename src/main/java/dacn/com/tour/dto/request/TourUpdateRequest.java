@@ -1,5 +1,6 @@
 package dacn.com.tour.dto.request;
 
+import dacn.com.tour.enums.StatusAction;
 import dacn.com.tour.model.Booking;
 import dacn.com.tour.model.Favorite;
 import lombok.*;
@@ -20,9 +21,12 @@ public class TourUpdateRequest {
 
     String titleTour;
     double price;
+    Double childPrice;
+    Double babyPrice;
     double sale;
 
     Timestamp departureDate;// ngay khoi hanh
+    Timestamp returnDate;
     String description;
     String address;
     String duration;// for instance: 1 ngay mot dem
@@ -36,9 +40,13 @@ public class TourUpdateRequest {
     int votes;
     int purchaseCount;
 
+    StatusAction status;
     String statusAction;
 
     Set<Booking> bookings;
-//    Set<Image> images;
+
     Set<Favorite> favorites;
+
+    String image;
+
 }

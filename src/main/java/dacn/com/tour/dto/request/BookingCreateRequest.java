@@ -1,9 +1,16 @@
 package dacn.com.tour.dto.request;
 
 import dacn.com.tour.model.Account;
+import dacn.com.tour.model.CustomerInfo;
 import dacn.com.tour.model.Tour;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -12,19 +19,19 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
 public class BookingCreateRequest {
-    String PIN;
-    String status;
-    double totalPrice;
+    int adult;
+    int children;
+    int baby;
 
+    Boolean acceptPolice;
+
+    String customerName;
     String address;
     String phone;
     String email;
     String notes;
-    String customerName;
-    int adult;
-    int children;
-    String travelType;
-    private String buyer;
 
-    String statusAction;
+    String total;
+
+    Set<CustomerInfo> customerInfoList;
 }

@@ -12,6 +12,7 @@ import java.util.List;
 public interface UserService {
     List<UserResponse> listAll();
     UserResponse read(Long id);
+    UserResponse readByUsername(String username);
     UserResponse readByEmail(String email);
     UserResponse create(UserCreateRequest request);
     UserResponse update(Long id, UserUpdateRequest request);

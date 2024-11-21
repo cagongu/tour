@@ -24,6 +24,7 @@ public interface BookingMapper {
     @Mapping(target = "tour", source = "tour")
     BookingResponse bookingToBookingResponse(Booking booking);
 
+    @Mapping(target = "idOrder", ignore = true)
     @Mapping(target = "dateAdded", ignore = true)
     @Mapping(target = "dateEdited", ignore = true)
     @Mapping(target = "dateDeleted", ignore = true)

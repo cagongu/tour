@@ -43,6 +43,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserResponse readByUsername(String username) {
+        log.info("Get by username is ran");
+        return userMapper.userToUserResponse(userRepository.findUserByUsername(username).orElseThrow());
+    }
+
+    @Override
     public UserResponse readByEmail(String email) {
         log.info("Get by email is ran");
         return userMapper.userToUserResponse(userRepository.findUserByEmail(email));

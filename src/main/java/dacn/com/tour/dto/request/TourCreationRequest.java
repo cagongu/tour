@@ -1,5 +1,6 @@
 package dacn.com.tour.dto.request;
 
+import dacn.com.tour.enums.StatusAction;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -16,9 +17,12 @@ import java.util.Set;
 public class TourCreationRequest {
     String titleTour;
     double price;
+    Double childPrice;
+    Double babyPrice;
     double sale;
 
     Timestamp departureDate;// ngay khoi hanh
+    Timestamp returnDate;
     String description;
     String address;
     String duration;// for instance: 1 ngay mot dem
@@ -29,7 +33,8 @@ public class TourCreationRequest {
     int votes;
     int purchaseCount;
 
+    StatusAction status;
     String statusAction;
 
-//    Set<Image> images;
+    String image;
 }

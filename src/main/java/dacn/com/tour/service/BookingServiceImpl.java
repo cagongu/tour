@@ -32,8 +32,6 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepository.findAll().stream().map(bookingMapper::bookingToBookingResponse).toList();
     }
 
-
-
     @Override
     public BookingResponse getById(Long id) {
         Booking booking = bookingRepository.findById(id).orElseThrow(RuntimeException::new);
@@ -43,9 +41,13 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingResponse create(Long tourId, Long userId,  BookingCreateRequest request) {
+        // Kiểm tra xem tour có tồn tại không
         Tour tour = tourRepository.findById(tourId).orElseThrow(() -> new AppException(ErrorCode.TOUR_NOT_FOUND));
+
+        // Kiểm tra xem tài khoản có tồn tại không
         Account account = accountRepository.findById(userId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
+        // Chuyển đổi từ request thành đối tượng Booking
         Booking booking = bookingMapper.bookingCreateRequestToBooking(request);
 
         booking.setAccount(account);
@@ -57,7 +59,6 @@ public class BookingServiceImpl implements BookingService {
 
 
         return bookingMapper.bookingToBookingResponse(booking);
-
     }
 
     @Override

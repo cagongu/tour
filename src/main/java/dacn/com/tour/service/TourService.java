@@ -17,5 +17,5 @@ public interface TourService {
     TourResponse addFavorite(Long userId, Long tourId);
     TourResponse removeFavorite(Long userId, Long tourId);
 
-    void delete(Long id);
+    TourResponse delete(Long id);
 }

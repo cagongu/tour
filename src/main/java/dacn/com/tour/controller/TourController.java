@@ -67,4 +67,13 @@ public class TourController {
                 .result(tourService.removeFavorite(userId, idTour))
                 .build();
     }
+
+    @DeleteMapping(TOUR_PATH_ID)
+    public ApiResponse<TourResponse> deleteTour(@PathVariable("idTour") Long idTour){
+
+
+        return ApiResponse.<TourResponse>builder()
+                .result(tourService.delete(idTour))
+                .build();
+    }
 }

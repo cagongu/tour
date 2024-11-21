@@ -1,4 +1,6 @@
 spring:
+  config:
+    import: classpath:environment.properties
   datasource:
     url: jdbc:mysql://localhost:3306/tour
     username: root

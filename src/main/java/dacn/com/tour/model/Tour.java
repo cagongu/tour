@@ -28,11 +28,16 @@ public class Tour {
     double sale;
 
     Timestamp departureDate;// ngay khoi hanh
+    Timestamp returnDate;
+
+    @Column(unique = false, nullable = true, length = 100000)
     String description;
     String address;
     String duration;// for instance: 1 ngay mot dem
 
     Double price;
+    Double childPrice;
+    Double babyPrice;
 
     String type;
 
@@ -43,7 +48,8 @@ public class Tour {
     int votes;
     int purchaseCount;
 
-    String statusAction;
+    StatusAction status;
+    StatusAction statusAction;
 
     @CreationTimestamp
     Timestamp dateAdded;
@@ -62,9 +68,8 @@ public class Tour {
         booking.setTour(this);
     }
 
-//    @Builder.Default
-//    @OneToMany(cascade = CascadeType.ALL)
-//    Set<Image> images = new HashSet<>();
+    @Column(unique = false, nullable = true, length = 100000)
+    String image;
 
     @Builder.Default
     @OneToMany(cascade = CascadeType.ALL)

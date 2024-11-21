@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -16,6 +18,13 @@ public class BookingController {
     private static final String BOOKING_PATH_ID = BOOKING_PATH + "/{idOrder}";
 
     private final BookingService bookingService;
+
+    @GetMapping(BOOKING_PATH)
+    public ApiResponse<List<BookingResponse>> getAll(){
+       return ApiResponse.<List<BookingResponse>>builder()
+               .result(bookingService.listAll())
+               .build();
+    }
 
     @PostMapping(BOOKING_PATH)
     public ApiResponse<BookingResponse> createBooking(@RequestParam Long userId,

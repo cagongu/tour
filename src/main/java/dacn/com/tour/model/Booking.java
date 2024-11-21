@@ -7,6 +7,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,21 +23,23 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long idOrder;
 
-    String PIN;
-    String status;
-    double totalPrice;
+    int adult;
+    int children;
+    int baby;
 
+    Boolean acceptPolice;
+
+    String customerName;
     String address;
     String phone;
     String email;
     String notes;
-    String customerName;
-    int adult;
-    int children;
-    String travelType;
-    private String buyer;
 
-    String statusAction;
+    String total;
+
+    @Builder.Default
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    Set<CustomerInfo> customerInfoList = new HashSet<>();
 
     @CreationTimestamp
     Timestamp dateAdded;

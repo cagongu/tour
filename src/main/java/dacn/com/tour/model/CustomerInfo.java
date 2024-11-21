@@ -7,7 +7,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -16,20 +15,15 @@ import java.util.UUID;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class Service {
+public class CustomerInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long idService;
+    Long id;
+    String customerName;
+    String phone;
+    String address;
+    String gender;
 
-    String name;
-
-    String statusAction;
-
-    @CreationTimestamp
-    Timestamp dateAdded;
-
-    @UpdateTimestamp
-    @Column(updatable = false)
-    Timestamp dateEdited;
-    Timestamp dateDeleted;
+    @ManyToOne
+    Booking booking;
 }

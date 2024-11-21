@@ -2,7 +2,6 @@ package dacn.com.tour.service;
 
 import dacn.com.tour.dto.request.TourCreationRequest;
 import dacn.com.tour.dto.request.TourUpdateRequest;
-import dacn.com.tour.dto.response.BookingResponse;
 import dacn.com.tour.dto.response.TourResponse;
 import dacn.com.tour.enums.StatusAction;
 import dacn.com.tour.exception.AppException;
@@ -22,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -48,6 +46,7 @@ public class TourServiceImpl implements TourService {
             List<Tour> tours = tourRepository.findAll();
             return tours.stream()
                     .map(tourMapper::tourToTourResponse)
+                     .filter(tour -> tour.getStatus() != StatusAction.DELETE)
                     .toList();
         }
     }
@@ -57,6 +56,7 @@ public class TourServiceImpl implements TourService {
 
         return tours.stream()
                 .map(tourMapper::tourToTourResponse)
+                 .filter(tour -> tour.getStatus() != StatusAction.DELETE)
                 .toList();
     }
 
@@ -65,6 +65,7 @@ public class TourServiceImpl implements TourService {
 
         return tours.stream()
                 .map(tourMapper::tourToTourResponse)
+                 .filter(tour -> tour.getStatus() != StatusAction.DELETE)
                 .toList();
     }
 
@@ -73,6 +74,7 @@ public class TourServiceImpl implements TourService {
 
         return tours.stream()
                 .map(tourMapper::tourToTourResponse)
+                 .filter(tour -> tour.getStatus() != StatusAction.DELETE)
                 .toList();
     }
 
@@ -143,10 +145,14 @@ public class TourServiceImpl implements TourService {
 
     @Override
     @Transactional
-    public void delete(Long id) {
+    public TourResponse delete(Long id) {
         log.info("Deleting tour with ID: {}", id);
         Tour tour = tourRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.TOUR_NOT_FOUND));
-        tourRepository.deleteById(tour.getIdTour());
+
+        tour.setStatus(StatusAction.DELETE);
+
+        return  tourMapper.tourToTourResponse(tourRepository.save(tour));
+//        tourRepository.deleteById(tour.getIdTour());
     }
 }

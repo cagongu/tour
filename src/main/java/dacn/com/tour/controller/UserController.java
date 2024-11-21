@@ -40,6 +40,13 @@ public class UserController {
                 .build();
     }
 
+    @GetMapping(USER_PATH + "/getByUsername")
+    ApiResponse<UserResponse> getUserByUsername(@RequestParam String username) {
+        return ApiResponse.<UserResponse>builder()
+                .result(userService.readByUsername(username))
+                .build();
+    }
+
     @GetMapping(USER_PATH_ID)
     ApiResponse<UserResponse> getUser(@PathVariable("userId") Long id) {
         return ApiResponse.<UserResponse>builder()

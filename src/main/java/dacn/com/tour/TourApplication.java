@@ -1,13 +1,106 @@
 package dacn.com.tour;
 
+import dacn.com.tour.configuration.Environment;
+import dacn.com.tour.enums.ConfirmRequestType;
+import dacn.com.tour.enums.RequestType;
+import dacn.com.tour.model.momo.*;
+import dacn.com.tour.processor.*;
+import dacn.com.tour.shared.utils.LogUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class TourApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		SpringApplication.run(TourApplication.class, args);
+
+		LogUtils.init();
+		String requestId = String.valueOf(System.currentTimeMillis());
+		String orderId = String.valueOf(System.currentTimeMillis());
+		Long transId = 2L;
+		long amount = 50000;
+
+		String partnerClientId = "partnerClientId";
+		String orderInfo = "Pay With MoMo";
+		String returnURL = "https://google.com.vn";
+		String notifyURL = "https://google.com.vn";
+		String callbackToken = "callbackToken";
+		String token = "";
+
+		Environment environment = Environment.selectEnv("dev");
+
+
+//      Remember to change the IDs at enviroment.properties file
+
+		/***
+		 * create payment with capture momo wallet
+		 */
+//		PaymentResponse captureWalletMoMoResponse = CreateOrderMoMo.process(environment, orderId, requestId, Long.toString(amount), orderInfo, returnURL, notifyURL, "", RequestType.CAPTURE_WALLET, Boolean.TRUE);
+
+//		/***
+//		 * create payment with Momo's ATM type
+//		 */
+//
+//		orderId = String.valueOf(System.currentTimeMillis());
+//		requestId = String.valueOf(System.currentTimeMillis());
+//		PaymentResponse captureATMMoMoResponse = CreateOrderMoMo.process(environment, orderId, requestId, Long.toString(amount), orderInfo, returnURL, notifyURL, "", RequestType.PAY_WITH_ATM, null);
+//
+//		/***
+//		 * create payment with Momo's Credit type
+//		 */
+//
+//		orderId = String.valueOf(System.currentTimeMillis());
+//		requestId = String.valueOf(System.currentTimeMillis());
+//		PaymentResponse captureCreditMoMoResponse = CreateOrderMoMo.process(environment, orderId, requestId, Long.toString(amount), orderInfo, returnURL, notifyURL, "", RequestType.PAY_WITH_CREDIT, Boolean.TRUE);
+//
+//		/***
+//		 * confirm transaction with Momo's ATM type
+//		 */
+//
+//		orderId = String.valueOf(System.currentTimeMillis());
+//		requestId = String.valueOf(System.currentTimeMillis());
+//        ConfirmResponse confirmResponse = ConfirmTransaction.process(environment, orderId, requestId, Long.toString(amount), ConfirmRequestType.CAPTURE, "");
+//
+//		/***
+//		 * query transaction
+//		 */
+//        QueryStatusTransactionResponse queryStatusTransactionResponse = QueryTransactionStatus.process(environment, orderId, requestId);
+//
+//		transId = 2L;
+//		/***
+//		 * refund transaction
+//		 */
+//        RefundMoMoResponse refundMoMoResponse = RefundTransaction.process(environment, orderId, requestId, Long.toString(amount), transId, "");
+//
+//		/***
+//		 * inquiry cbToken
+//		 */
+//		partnerClientId = "sang.le@mservice.com.vn";
+//        CbTokenInquiryResponse cbTokenInquiryResponse = InquiryCbToken.process(environment, orderId, requestId, partnerClientId);
+//
+//		/***
+//		 * Binding Token
+//		 */
+//		partnerClientId = "sang.le@mservice.com.vn";
+//		callbackToken = "abc"; // received from notification or cbToken Inquiry API
+//        BindingTokenResponse bindingTokenResponse = BindingToken.process(environment, orderId, requestId, partnerClientId, callbackToken);
+//
+//		/***
+//		 * Pay By Token
+//		 */
+//		partnerClientId = "sang.le@mservice.com.vn";
+//		callbackToken = "abc"; // received from notification or cbToken Inquiry API
+//		token = "ajkhsajshajhsaj"; // Token after received from binding and decrypt AES then encrypt RSA
+//        PaymentResponse paymentTokenResponse = PayByToken.process(environment, orderId, requestId, String.valueOf(amount), orderInfo, returnURL, notifyURL, "", partnerClientId, token, Boolean.TRUE);
+//
+//		/***
+//		 * inquiry cbToken
+//		 */
+//		partnerClientId = "sang.le@mservice.com.vn";
+//		token = "ajkhsajshajhsaj"; // Token after received from binding and decrypt AES then encrypt RSA
+//        DeleteTokenResponse deleteTokenResponse = DeleteToken.process(environment, orderId, requestId, partnerClientId, token);
+
 	}
 
 }
