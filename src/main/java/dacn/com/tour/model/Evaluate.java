@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Getter
@@ -21,36 +19,17 @@ public class Evaluate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long idEvaluate;
 
-    Integer numberStarHotel;
-
-    Integer numberStarFood;
-
-    Integer numberStarVehicle;
-
-    Integer numberStarTourGuide;
-
-    Integer numberStarSchedule;
+    Integer numberStar;
 
     String title;
-    String contentEvaluate;
-
-    BigDecimal rateAverage;
-    String rateTitle;
-    String typeEvaluate;
-
-    String statusAction;
+    String content;
 
     @CreationTimestamp
     Timestamp dateAdded;
-
-    @UpdateTimestamp
-    @Column(updatable = false)
-    Timestamp dateEdited;
-    Timestamp dateDeleted;
 
     @ManyToOne
     Account account;
 
     @ManyToOne
-    Tour tour;
+    Booking booking;
 }

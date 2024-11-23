@@ -2,6 +2,7 @@ package dacn.com.tour.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
 import dacn.com.tour.enums.StatusAction;
 import dacn.com.tour.model.Booking;
 import dacn.com.tour.model.Favorite;
@@ -29,6 +30,7 @@ public class TourResponse {
 
     Timestamp departureDate;// ngay khoi hanh
     Timestamp returnDate; // ngay tro ve
+
     String description;
     String address;
     String duration;// for instance: 1 ngay mot dem

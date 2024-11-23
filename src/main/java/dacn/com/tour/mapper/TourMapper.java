@@ -15,7 +15,6 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 
 @Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface TourMapper {
-
     @Mapping(target = "idTour", ignore = true)
     @Mapping(target = "tagId", ignore = true)
     @Mapping(target = "serviceId", ignore = true)
@@ -27,7 +26,6 @@ public interface TourMapper {
     Tour tourCreateRequestToTour(TourCreationRequest request);
 
     TourResponse tourToTourResponse(Tour tour);
-
 
     @Mapping(target = "dateAdded", ignore = true)
     @Mapping(target = "dateEdited", ignore = true)

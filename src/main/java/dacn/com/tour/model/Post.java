@@ -36,10 +36,9 @@ public class Post {
     StatusAction statusAction;
 
     @CreationTimestamp
-    Timestamp dateAdded;
-
-    @UpdateTimestamp
     @Column(updatable = false)
+    Timestamp dateAdded;
+    @UpdateTimestamp
     Timestamp dateEdited;
     Timestamp dateDeleted;
 

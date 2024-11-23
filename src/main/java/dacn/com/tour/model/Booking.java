@@ -34,6 +34,7 @@ public class Booking {
     String phone;
     String email;
     String notes;
+    boolean evaluate;
 
     String total;
 
@@ -42,12 +43,14 @@ public class Booking {
     Set<CustomerInfo> customerInfoList = new HashSet<>();
 
     @CreationTimestamp
-    Timestamp dateAdded;
-
-    @UpdateTimestamp
     @Column(updatable = false)
+    Timestamp dateAdded;
+    @UpdateTimestamp
     Timestamp dateEdited;
     Timestamp dateDeleted;
+
+    @ManyToOne
+    Promotion promotion;
 
     @ManyToOne
     Account account;

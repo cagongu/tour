@@ -52,11 +52,12 @@ public class Tour {
     StatusAction statusAction;
 
     @CreationTimestamp
+    @Column(updatable = false)
     Timestamp dateAdded;
 
     @UpdateTimestamp
-    @Column(updatable = false)
     Timestamp dateEdited;
+
     Timestamp dateDeleted;
 
     @Builder.Default

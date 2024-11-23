@@ -28,10 +28,10 @@ public class Timeline {
     String statusAction;
 
     @CreationTimestamp
+    @Column(updatable = false)
     Timestamp dateAdded;
 
     @UpdateTimestamp
-    @Column(updatable = false)
     Timestamp dateEdited;
     Timestamp dateDeleted;
 

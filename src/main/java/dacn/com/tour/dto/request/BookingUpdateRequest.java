@@ -1,12 +1,9 @@
 package dacn.com.tour.dto.request;
 
-import dacn.com.tour.model.Account;
 import dacn.com.tour.model.CustomerInfo;
-import dacn.com.tour.model.Tour;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.sql.Timestamp;
 import java.util.Set;
 
 @Getter
@@ -27,9 +24,11 @@ public class BookingUpdateRequest {
     String phone;
     String email;
     String notes;
+    @Builder.Default
+    boolean evaluate = false;
 
     String total;
 
+    PromotionUpdateRequest promotion;
     Set<CustomerInfo> customerInfoList;
-
 }

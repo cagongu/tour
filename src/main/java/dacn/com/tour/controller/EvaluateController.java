@@ -1,10 +1,32 @@
 package dacn.com.tour.controller;
 
-import org.springframework.web.bind.annotation.RestController;
+import dacn.com.tour.dto.request.EvaluateRequest;
+import dacn.com.tour.dto.response.ApiResponse;
+import dacn.com.tour.dto.response.EvaluateResponse;
+import dacn.com.tour.service.EvaluateService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@Deprecated
-
+@RequestMapping("/evaluates")
+@RequiredArgsConstructor
 public class EvaluateController {
-//    Danh gia tour
+
+    private final EvaluateService evaluateService;
+
+    @PostMapping()
+    public ApiResponse<EvaluateResponse> createEvaluate(@RequestBody EvaluateRequest request) {
+        return ApiResponse.<EvaluateResponse>builder()
+                .result(evaluateService.createEvaluate(request))
+                .build();
+    }
+
+    @GetMapping()
+    public ApiResponse<List<EvaluateResponse>> getAll(){
+        return ApiResponse.<List<EvaluateResponse>>builder()
+                .result(evaluateService.getAllEvaluate())
+                .build();
+    }
 }

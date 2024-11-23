@@ -1,23 +1,21 @@
 package dacn.com.tour.service;
 
 import dacn.com.tour.dto.request.BookingCreateRequest;
-import dacn.com.tour.dto.request.UserCreateRequest;
 import dacn.com.tour.dto.request.UserUpdateRequest;
 import dacn.com.tour.dto.response.BookingResponse;
 import dacn.com.tour.exception.AppException;
 import dacn.com.tour.exception.ErrorCode;
 import dacn.com.tour.mapper.BookingMapper;
-import dacn.com.tour.model.Account;
-import dacn.com.tour.model.Booking;
-import dacn.com.tour.model.Tour;
-import dacn.com.tour.repository.AccountRepository;
-import dacn.com.tour.repository.BookingRepository;
-import dacn.com.tour.repository.TourRepository;
+import dacn.com.tour.model.*;
+import dacn.com.tour.model.CustomerInfo;
+import dacn.com.tour.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.awt.print.Book;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +23,10 @@ public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
     private final BookingMapper bookingMapper;
     private final TourRepository tourRepository;
+    private final PromotionRepository promotionRepository;
     private final AccountRepository accountRepository;
+    private final EvaluateRepository evaluateRepository;
+    private final CustomerInfoRepository customerInfoRepository;
 
     @Override
     public List<BookingResponse> listAll() {
@@ -40,23 +41,33 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingResponse create(Long tourId, Long userId,  BookingCreateRequest request) {
+    public BookingResponse create(@RequestParam Long tourId,@RequestParam Long userId,@RequestBody BookingCreateRequest request) {
         // Kiểm tra xem tour có tồn tại không
         Tour tour = tourRepository.findById(tourId).orElseThrow(() -> new AppException(ErrorCode.TOUR_NOT_FOUND));
 
         // Kiểm tra xem tài khoản có tồn tại không
         Account account = accountRepository.findById(userId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
+        Promotion promotion = promotionRepository.findById(request.getPromotion().getId()).orElse(null);
+
+        if(promotion != null ){
+            promotion.setQualityOnHand(promotion.getQualityOnHand() - 1);
+
+            promotionRepository.save(promotion);
+
+            request.setPromotion(null);
+        }
+
         // Chuyển đổi từ request thành đối tượng Booking
         Booking booking = bookingMapper.bookingCreateRequestToBooking(request);
 
         booking.setAccount(account);
         booking.setTour(tour);
+        booking.setPromotion(promotion);
 
         tour.getBookings().add(booking);
 
         tourRepository.save(tour);
-
 
         return bookingMapper.bookingToBookingResponse(booking);
     }
@@ -68,6 +79,30 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void delete(Long id) {
+        Booking booking = bookingRepository.findById(id).orElseThrow();
 
+        Evaluate evaluate = evaluateRepository.findAll().stream().filter(eval -> eval.getBooking() == booking).findFirst().orElse(null);
+        if (evaluate != null){
+            evaluateRepository.delete(evaluate);
+        }
+
+        booking.setAccount(null);
+
+        Tour tour = booking.getTour();
+        if (tour != null) {
+            tour.getBookings().remove(booking);
+            tourRepository.save(tour);
+        }
+        booking.setTour(null);
+
+
+        Set<CustomerInfo> customerInfos = booking.getCustomerInfoList();
+        booking.getCustomerInfoList().removeAll(customerInfos);
+
+        if (customerInfos != null && !customerInfos.isEmpty()) {
+            customerInfoRepository.deleteAll(customerInfos);
+        }
+
+        bookingRepository.delete(booking);
     }
 }

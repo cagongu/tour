@@ -11,7 +11,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 
 @Mapper(componentModel = "spring",
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-        uses = {TourMapper.class})
+        uses = {TourMapper.class, PromotionMapper.class})
 public interface BookingMapper {
     @Mapping(target = "idOrder", ignore = true)
     @Mapping(target = "dateAdded", ignore = true)
