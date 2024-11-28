@@ -29,6 +29,7 @@ public class UserResponse {
     int verify;
     String verifyToken;
     String statusAction;
+    String payed;
 
     Timestamp dateAdded;
     Timestamp dateEdited;

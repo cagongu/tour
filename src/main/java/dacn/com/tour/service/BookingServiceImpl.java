@@ -48,6 +48,17 @@ public class BookingServiceImpl implements BookingService {
         // Kiểm tra xem tài khoản có tồn tại không
         Account account = accountRepository.findById(userId).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
+        int total = Integer.parseInt(request.getTotal());
+
+        int tmp = 0;
+        if(account.getPayed() != null){
+            tmp = Integer.parseInt( account.getPayed());
+        }
+        tmp += total;
+
+        account.setPayed(tmp + "");
+        accountRepository.save(account);
+
         Promotion promotion = promotionRepository.findById(request.getPromotion().getId()).orElse(null);
 
         if(promotion != null ){

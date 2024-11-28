@@ -5,7 +5,6 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
-import com.nimbusds.oauth2.sdk.util.CollectionUtils;
 import dacn.com.tour.dto.request.AuthenticationRequest;
 import dacn.com.tour.dto.request.IntrospectRequest;
 import dacn.com.tour.dto.request.LogoutRequest;
@@ -15,7 +14,9 @@ import dacn.com.tour.dto.response.IntrospectResponse;
 import dacn.com.tour.exception.AppException;
 import dacn.com.tour.exception.ErrorCode;
 import dacn.com.tour.model.Account;
+import dacn.com.tour.model.ForgotPassword;
 import dacn.com.tour.repository.AccountRepository;
+import dacn.com.tour.repository.PasswordRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -40,6 +41,7 @@ import java.util.UUID;
 public class AuthenticationServiceImpl implements AuthenticationService {
 
     AccountRepository userRepository;
+    PasswordRepository passwordRepository;
 
     @Value("${jwt.signerKey}")
     @NonFinal
@@ -52,6 +54,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Value("${jwt.refreshable-duration}")
     @NonFinal
     protected Long REFRESHABLE_DURATION;
+
     @Override
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
@@ -62,7 +65,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         boolean authenticated = passwordEncoder.matches(request.getPassword(), user.getPassword());
 
-        if(!authenticated){
+        if (!authenticated) {
             throw new AppException(ErrorCode.UNAUTHENTICATED);
         }
 
@@ -75,13 +78,34 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
+    public void saveForgotPasswordCode(String code) {
+        passwordRepository.save(ForgotPassword.builder()
+                .code(code)
+                .active(true)
+                .build());
+    }
+
+    @Override
+    public boolean checkForgotPasswordCode(String code) {
+        ForgotPassword forgotPassword = passwordRepository.findById(code).orElseThrow(() -> new AppException(ErrorCode.PASSWORD_CODE_NOT_FOUND));
+
+        if (forgotPassword.getActive()) {
+            forgotPassword.setActive(false);
+            passwordRepository.save(forgotPassword);
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
     public IntrospectResponse introspect(IntrospectRequest request) throws ParseException, JOSEException {
         var token = request.getToken();
         boolean isValid = true;
 
         try {
             verifyToken(token, false);
-        }catch (AppException e){
+        } catch (AppException e) {
             isValid = false;
         }
 
@@ -115,7 +139,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new RuntimeException(e);
         }
     }
-
 
 
     @Override

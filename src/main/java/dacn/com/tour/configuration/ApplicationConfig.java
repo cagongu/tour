@@ -24,6 +24,7 @@ public class ApplicationConfig {
             if (userRepository.findUserByUsername("admin").isEmpty()) {
                 Account user = Account.builder()
                         .username("admin")
+                        .role("ADMIN")
                         .password(passwordEncoder.encode("admin"))
                         .build();
                 userRepository.save(user);

@@ -41,6 +41,7 @@ public class Account {
     String address;
     String gender;
     Timestamp dob;
+    String payed;
 
     int verify;
     String verifyToken;
