@@ -11,7 +11,7 @@ import dacn.com.tour.service.AuthenticationService;
 import dacn.com.tour.service.EmailService;
 import dacn.com.tour.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -75,6 +75,7 @@ public class AuthenticationController {
             UserUpdateRequest updateRequest = UserUpdateRequest.builder()
                     .password(request.getNewPassword()) // Nên mã hóa mật khẩu ở đây nếu chưa làm
                     .build();
+
             userService.update(userResponse.getIdAccount(), updateRequest);
 
              return ApiResponse.<String>builder()
