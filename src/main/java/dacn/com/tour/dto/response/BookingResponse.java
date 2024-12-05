@@ -2,6 +2,7 @@ package dacn.com.tour.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dacn.com.tour.model.CustomerInfo;
+import dacn.com.tour.model.Evaluate;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -29,7 +30,7 @@ public class BookingResponse {
     String phone;
     String email;
     String notes;
-    boolean evaluate;
+    Evaluate evaluate;
 
     String total;
 

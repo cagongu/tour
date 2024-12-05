@@ -29,4 +29,11 @@ public class EvaluateController {
                 .result(evaluateService.getAllEvaluate())
                 .build();
     }
+
+    @GetMapping("/{tourId}")
+    public ApiResponse<List<EvaluateResponse>> getAllByTourId(@PathVariable("tourId") Long tourId){
+        return ApiResponse.<List<EvaluateResponse>>builder()
+                .result(evaluateService.getAllByTourId(tourId))
+                .build();
+    }
 }

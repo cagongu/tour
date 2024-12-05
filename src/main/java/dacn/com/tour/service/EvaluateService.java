@@ -9,4 +9,6 @@ public interface EvaluateService {
     EvaluateResponse createEvaluate(EvaluateRequest request);
 
     List<EvaluateResponse> getAllEvaluate();
+
+    List<EvaluateResponse> getAllByTourId(Long tourId);
 }

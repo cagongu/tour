@@ -1,6 +1,7 @@
 package dacn.com.tour.dto.request;
 
 import dacn.com.tour.model.CustomerInfo;
+import dacn.com.tour.model.Evaluate;
 import dacn.com.tour.model.Promotion;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -25,8 +26,7 @@ public class BookingCreateRequest {
     String phone;
     String email;
     String notes;
-    @Builder.Default
-    boolean evaluate = false;
+    Evaluate evaluate;
 
     String total;
 

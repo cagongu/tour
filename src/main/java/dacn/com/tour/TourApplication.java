@@ -1,15 +1,14 @@
 package dacn.com.tour;
 
 import dacn.com.tour.configuration.Environment;
-import dacn.com.tour.enums.ConfirmRequestType;
-import dacn.com.tour.enums.RequestType;
-import dacn.com.tour.model.momo.*;
-import dacn.com.tour.processor.*;
+
 import dacn.com.tour.shared.utils.LogUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
+@EnableCaching
 public class TourApplication {
 
 	public static void main(String[] args) throws Exception{

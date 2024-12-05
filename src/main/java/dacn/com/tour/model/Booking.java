@@ -34,7 +34,9 @@ public class Booking {
     String phone;
     String email;
     String notes;
-    boolean evaluate;
+
+    @OneToOne
+    Evaluate evaluate;
 
     String total;
 

@@ -16,11 +16,16 @@ import dacn.com.tour.repository.FavoriteRepository;
 import dacn.com.tour.repository.TourRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +36,10 @@ public class TourServiceImpl implements TourService {
     private final FavoriteRepository favoriteRepository;
     private final AccountRepository accountRepository;
     private final BookingRepository bookingRepository;
+    private final CacheManager cacheManager;
 
+
+    @Cacheable(cacheNames = "tourListCache")
     @Override
     public List<TourResponse> listAll(String description, String type, String place) {
         log.info("Fetching all tours");
@@ -78,6 +86,19 @@ public class TourServiceImpl implements TourService {
                 .toList();
     }
 
+    private void clearCache(Long tourId) {
+        cacheManager.getCache("tourCache").evict(tourId);
+        cacheManager.getCache("tourListCache").clear();
+        if (cacheManager.getCache("tourCache") != null ){
+            cacheManager.getCache("tourCache").evict(tourId);
+        }
+
+        if (cacheManager.getCache("tourListCache") != null) {
+            cacheManager.getCache("tourListCache").clear();
+        }
+    }
+
+    @Cacheable(cacheNames = "tourCache", key = "#id")
     @Override
     public TourResponse getById(Long id) {
         log.info("Fetching tour with ID: {}", id);
@@ -90,14 +111,23 @@ public class TourServiceImpl implements TourService {
     @Transactional
     public TourResponse create(TourCreationRequest request) {
         log.info("Creating new tour");
+
+        if (cacheManager.getCache("tourListCache") != null) {
+            cacheManager.getCache("tourListCache").clear();
+        }
+
         Tour tour = tourMapper.tourCreateRequestToTour(request);
         return tourMapper.tourToTourResponse(tourRepository.save(tour));
     }
 
     @Override
     @Transactional
+    @CachePut(value = "tourListCache", key = "id")
     public TourResponse update(Long id, TourUpdateRequest request) {
         log.info("Updating tour with ID: {}", id);
+
+        clearCache(id);
+
         Tour tour = tourRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.TOUR_NOT_FOUND));
 
@@ -145,6 +175,7 @@ public class TourServiceImpl implements TourService {
 
     @Override
     @Transactional
+    @CacheEvict(cacheNames = "tourCache", key = "#id")
     public TourResponse delete(Long id) {
         log.info("Deleting tour with ID: {}", id);
         Tour tour = tourRepository.findById(id)
