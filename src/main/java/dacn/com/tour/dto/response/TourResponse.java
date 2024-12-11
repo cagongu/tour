@@ -56,6 +56,4 @@ public class TourResponse {
 
     String image;
 
-    @JsonIgnore
-    Set<Favorite> favorites;
 }

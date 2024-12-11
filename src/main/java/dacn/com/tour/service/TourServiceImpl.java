@@ -2,6 +2,7 @@ package dacn.com.tour.service;
 
 import dacn.com.tour.dto.request.TourCreationRequest;
 import dacn.com.tour.dto.request.TourUpdateRequest;
+import dacn.com.tour.dto.response.TourRatingResponse;
 import dacn.com.tour.dto.response.TourResponse;
 import dacn.com.tour.enums.StatusAction;
 import dacn.com.tour.exception.AppException;
@@ -20,12 +21,17 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -122,7 +128,7 @@ public class TourServiceImpl implements TourService {
 
     @Override
     @Transactional
-    @CachePut(value = "tourListCache", key = "id")
+    @CachePut(value = "tourListCache", key = "#id")
     public TourResponse update(Long id, TourUpdateRequest request) {
         log.info("Updating tour with ID: {}", id);
 
@@ -185,5 +191,19 @@ public class TourServiceImpl implements TourService {
 
         return  tourMapper.tourToTourResponse(tourRepository.save(tour));
 //        tourRepository.deleteById(tour.getIdTour());
+    }
+    @Override
+    public Page<TourRatingResponse> getToursSortedByRating(Pageable pageable) {
+        // Lấy danh sách tours đã được sắp xếp và phân trang
+        Page<Object[]> result = tourRepository.findToursSortedByAverageRatingAndCount(pageable);
+
+        // Ánh xạ kết quả từ query sang DTO
+        return result.map(row -> new TourRatingResponse(
+                ((Tour) row[0]).getIdTour(),
+                ((Tour) row[0]).getImage(),  // Lấy ảnh từ Tour
+                ((Tour) row[0]).getTitleTour(),
+                (Double) row[1],
+                (Long) row[2]
+        ));
     }
 }

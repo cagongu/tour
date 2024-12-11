@@ -3,9 +3,14 @@ package dacn.com.tour.controller;
 import dacn.com.tour.dto.request.TourCreationRequest;
 import dacn.com.tour.dto.request.TourUpdateRequest;
 import dacn.com.tour.dto.response.ApiResponse;
+import dacn.com.tour.dto.response.TourRatingResponse;
 import dacn.com.tour.dto.response.TourResponse;
 import dacn.com.tour.service.TourService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,6 +54,18 @@ public class TourController {
     public ApiResponse<TourResponse> updateTour(@PathVariable("idTour") Long idTour, @RequestBody TourUpdateRequest request) {
         return ApiResponse.<TourResponse>builder()
                 .result(tourService.update(idTour, request))
+                .build();
+    }
+
+    @GetMapping(TOUR_PATH+ "/sorted-by-rating")
+    public ApiResponse<Page<TourRatingResponse>> getToursSortedByRating(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.desc("avgRating"), Sort.Order.desc("ratingCount")));
+
+        return ApiResponse.<Page<TourRatingResponse>>builder()
+                .result(tourService.getToursSortedByRating(pageable))
                 .build();
     }
 
