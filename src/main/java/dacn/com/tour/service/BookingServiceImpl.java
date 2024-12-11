@@ -7,7 +7,6 @@ import dacn.com.tour.exception.AppException;
 import dacn.com.tour.exception.ErrorCode;
 import dacn.com.tour.mapper.BookingMapper;
 import dacn.com.tour.model.*;
-import dacn.com.tour.model.CustomerInfo;
 import dacn.com.tour.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -41,7 +40,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingResponse create(@RequestParam Long tourId,@RequestParam Long userId,@RequestBody BookingCreateRequest request) {
+    public BookingResponse create(@RequestParam Long tourId, @RequestParam Long userId, @RequestBody BookingCreateRequest request) {
         // Kiểm tra xem tour có tồn tại không
         Tour tour = tourRepository.findById(tourId).orElseThrow(() -> new AppException(ErrorCode.TOUR_NOT_FOUND));
 
@@ -51,17 +50,21 @@ public class BookingServiceImpl implements BookingService {
         int total = Integer.parseInt(request.getTotal());
 
         int tmp = 0;
-        if(account.getPayed() != null){
-            tmp = Integer.parseInt( account.getPayed());
+        if (account.getPayed() != null) {
+            tmp = Integer.parseInt(account.getPayed());
         }
         tmp += total;
 
         account.setPayed(tmp + "");
         accountRepository.save(account);
 
-        Promotion promotion = promotionRepository.findById(request.getPromotion().getId()).orElse(null);
+        Promotion promotion = null;
 
-        if(promotion != null ){
+        if (request.getPromotion() != null && request.getPromotion().getId() != null) {
+            promotion = promotionRepository.findById(request.getPromotion().getId()).orElse(null);
+        }
+
+        if (promotion != null) {
             promotion.setQualityOnHand(promotion.getQualityOnHand() - 1);
 
             promotionRepository.save(promotion);
@@ -93,7 +96,7 @@ public class BookingServiceImpl implements BookingService {
         Booking booking = bookingRepository.findById(id).orElseThrow();
 
         Evaluate evaluate = evaluateRepository.findAll().stream().filter(eval -> eval.getBooking() == booking).findFirst().orElse(null);
-        if (evaluate != null){
+        if (evaluate != null) {
             evaluateRepository.delete(evaluate);
         }
 
