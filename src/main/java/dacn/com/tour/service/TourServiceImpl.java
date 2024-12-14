@@ -206,4 +206,22 @@ public class TourServiceImpl implements TourService {
                 (Long) row[2]
         ));
     }
+
+    @Override
+    public TourRatingResponse getTourRatingResponseById(Long id) {
+        Tour tour = tourRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.TOUR_NOT_FOUND));
+
+        Double avgRating = tour.getBookings().stream()
+                .mapToDouble(booking -> booking.getEvaluate().getNumberStar())
+                .average()
+                .orElse(0.0);
+
+        TourRatingResponse tourRatingResponse;
+        tourRatingResponse = TourRatingResponse.builder()
+                .avgRating(avgRating)
+                .idTour(tour.getIdTour())
+                .build();
+
+        return tourRatingResponse;
+    }
 }

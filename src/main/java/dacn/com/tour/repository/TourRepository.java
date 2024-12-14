@@ -23,4 +23,5 @@ public interface TourRepository extends JpaRepository<Tour, Long> {
             "GROUP BY t " +
             "ORDER BY avgRating DESC, ratingCount DESC")
     Page<Object[]> findToursSortedByAverageRatingAndCount(Pageable pageable);
+
 }

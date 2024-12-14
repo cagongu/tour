@@ -21,4 +21,7 @@ public interface TourService {
     TourResponse removeFavorite(Long userId, Long tourId);
     TourResponse delete(Long id);
     Page<TourRatingResponse> getToursSortedByRating(Pageable pageable);
+
+
+    TourRatingResponse getTourRatingResponseById(Long id);
 }

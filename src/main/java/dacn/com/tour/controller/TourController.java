@@ -43,12 +43,21 @@ public class TourController {
                 .build();
     }
 
+    @GetMapping(TOUR_PATH_ID+ "/get-tour-rating")
+    public ApiResponse<TourRatingResponse> getTourRatingById(@PathVariable("idTour") Long idTour) {
+        return ApiResponse.<TourRatingResponse>builder()
+                .result(tourService.getTourRatingResponseById(idTour))
+                .build();
+    }
+
     @PostMapping(TOUR_PATH)
     public ApiResponse<TourResponse> createNewTour(@RequestBody TourCreationRequest request) {
         return ApiResponse.<TourResponse>builder()
                 .result(tourService.create(request))
                 .build();
     }
+
+
 
     @PutMapping(TOUR_PATH_ID)
     public ApiResponse<TourResponse> updateTour(@PathVariable("idTour") Long idTour, @RequestBody TourUpdateRequest request) {
