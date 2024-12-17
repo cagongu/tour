@@ -1,5 +1,6 @@
 package dacn.com.tour.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -30,6 +31,7 @@ public class Evaluate {
     @ManyToOne
     Account account;
 
+    @JsonIgnore
     @ManyToOne
     Booking booking;
 }

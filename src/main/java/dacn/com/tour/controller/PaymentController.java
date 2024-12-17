@@ -68,7 +68,7 @@ public class PaymentController {
                     paymentRequestDTO.getReturnURL(),
                     paymentRequestDTO.getNotifyURL(),
                     paymentRequestDTO.getExtraData(),
-                    RequestType.PAY_WITH_ATM,
+                    RequestType.CAPTURE_WALLET,
                     Boolean.TRUE
             );
 
